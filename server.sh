@@ -13,11 +13,10 @@ runAsRoot() {
 ############################################################
 # Upgrade
 ############################################################
-if ! [ -e /var/tmp/tmp.*.upgraded ]; then
+if ! grep -Pz "Start-Date: $(date +%F) .*\nCommandline: apt -y upgrade" /var/log/apt/history.log > /dev/null; then
   runAsRoot apt update
   runAsRoot DEBIAN_FRONTEND=noninteractive apt -y upgrade
   runAsRoot snap refresh
-  mktemp -p /var/tmp --suffix=.upgraded > /dev/null
   runAsRoot reboot
 fi
 
