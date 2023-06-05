@@ -43,7 +43,7 @@ mullvad lan set allow
 ############################################################
 # Bash
 ############################################################
-sed -i 's/01;32m/01;31m/' $HOME/.bashrc
+sed -i '/^\s\+PS1=/s/01;32m/01;31m/' $HOME/.bashrc
 cp $HOME/.bashrc $HOME/.bash_aliases
 cat << EOF > $HOME/.bash_aliases
 alias mullvad-status='mullvad status && curl https://am.i.mullvad.net/connected'
