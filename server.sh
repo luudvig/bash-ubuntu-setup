@@ -26,6 +26,12 @@ fi
 install -m $(stat -c '%a' $HOME/.bashrc) /dev/null $HOME/.bash_aliases
 
 ############################################################
+# ANSIBLE
+############################################################
+runAsRoot add-apt-repository -y ppa:ansible/ansible
+runAsRoot DEBIAN_FRONTEND=noninteractive apt -y install ansible
+
+############################################################
 # DOCKER
 ############################################################
 cd $(mktemp -d)
@@ -78,4 +84,4 @@ chmod a-w $HOME/transmission/compose.yaml
 ############################################################
 echo "alias yt-dlp='docker run -it --rm -v \"\$(pwd):/data\" --pull always --entrypoint sh spaam/svtplay-dl -c \"wget https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -O /usr/local/bin/yt-dlp && chmod a+rx /usr/local/bin/yt-dlp && sh\"'" >> $HOME/.bash_aliases
 
-runAsRoot poweroff
+runAsRoot reboot
